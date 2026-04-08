@@ -60,8 +60,9 @@ exports.getInterviewReport = async (req, res) => {
 
 // Get all interview reports for a user, sorted by creation date in descending order
 exports.getInterviewReportAll = async (req, res) => {
+  const userId=req.user.id;
   try {
-    const interviewReport = await InterviewModel.find()
+    const interviewReport = await InterviewModel.find({ user: userId })
       .sort({ createdAt: -1 })
       .select(
         "-resume -selfDescription -jobDescription -technicalQuestions -behavioralQuestions -skillGaps -preparationPlan",
